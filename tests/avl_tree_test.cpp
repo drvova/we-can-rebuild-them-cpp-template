@@ -1,4 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
+#include <catch2/benchmark/catch_benchmark.hpp>
+#include <catch2/benchmark/catch_constructor.hpp>
+#include <catch2/generators/catch_generators_range.hpp>
 #include "../src/avl_tree.hpp"
 
 TEST_CASE("AVL tree insert single value") {
@@ -58,7 +61,7 @@ TEST_CASE("AVL tree insert complex sequence") {
     tree.insert(80);
     tree.insert(5);
     tree.insert(15);
-    
+
     std::string result = tree.serialize();
     REQUIRE(!result.empty());
 }
@@ -113,10 +116,10 @@ TEST_CASE("AVL tree delete with rebalancing") {
     tree.insert(80);
     tree.insert(5);
     tree.insert(15);
-    
+
     tree.remove(80);
     tree.remove(75);
-    
+
     std::string result = tree.serialize();
     REQUIRE(!result.empty());
 }
@@ -141,7 +144,7 @@ TEST_CASE("AVL tree serialize complex tree") {
     tree.insert(7);
     tree.insert(12);
     tree.insert(20);
-    
+
     std::string result = tree.serialize();
     REQUIRE(!result.empty());
     REQUIRE(result.find("10") != std::string::npos);
@@ -176,10 +179,10 @@ TEST_CASE("AVL tree serialize-deserialize roundtrip") {
     original.insert(30);
     original.insert(60);
     original.insert(80);
-    
+
     std::string serialized = original.serialize();
     AVLTree deserialized = AVLTree::deserialize(serialized);
-    
+
     REQUIRE(deserialized.serialize() == serialized);
 }
 
@@ -202,7 +205,7 @@ TEST_CASE("AVL tree delete non-existent value") {
 
 TEST_CASE("AVL tree operations sequence") {
     AVLTree tree;
-    
+
     tree.insert(100);
     tree.insert(50);
     tree.insert(150);
@@ -210,11 +213,11 @@ TEST_CASE("AVL tree operations sequence") {
     tree.insert(75);
     tree.insert(125);
     tree.insert(175);
-    
+
     tree.remove(25);
     tree.insert(30);
     tree.remove(150);
-    
+
     std::string result = tree.serialize();
     REQUIRE(!result.empty());
 }
